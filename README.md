@@ -1,169 +1,103 @@
-# Cars Dataset - Exploratory Data Analysis
+# NumPy Complete Guide
 
-Exploratory Data Analysis on an automobile dataset to understand pricing patterns, clean data
-quality issues, and surface relationships between a car's specifications and its price,
-through descriptive statistics and visualizations. No machine learning model is built; the
-focus is purely on inspection, cleaning, and visual and statistical exploration.
+A structured, hands-on reference covering the core capabilities of NumPy, the foundational Python library for numerical computing, data analysis, and machine learning. This repository walks through array creation, manipulation, mathematical operations, and statistical analysis using clear, practical examples.
 
----
+## Overview
+
+NumPy (Numerical Python) is the fundamental open-source library for scientific computing in Python. It introduces the ndarray, a fast and memory-efficient multidimensional array object, along with a comprehensive set of mathematical functions to operate on that data. This notebook serves as a complete, categorized walkthrough of the library's essential features.
+
+## Table of Contents
+
+1. Installation and Setup
+2. Array Creation
+3. Array Reshaping
+4. Array Attributes
+5. Data Type Conversion
+6. Arithmetic Operations
+7. Universal Functions
+8. Slicing and Indexing
+9. Array Iteration
+10. Element Modification
+11. Statistical Operations
+12. Logical Operations and Boolean Indexing
+
+## Installation and Setup
+
+Covers installing NumPy through pip and importing the library into a Python environment as the conventional alias np, which is the standard convention used throughout the scientific Python ecosystem.
+
+## Array Creation
+
+Demonstrates the construction of one-dimensional and multidimensional arrays using np.array, along with generated structures such as ranges through np.arange, matrices of ones through np.ones, and identity matrices through np.eye. Includes inspection of core properties including shape, dimension count, and data type at the point of creation.
+
+## Array Reshaping
+
+Explains how to alter the structure of an array without changing its underlying data, using the reshape method. Includes practical guidance on matching element counts correctly to avoid dimension mismatch errors.
+
+## Array Attributes
+
+Details the essential metadata every array exposes, including shape (the size along each dimension), ndim (the number of dimensions), size (the total element count), dtype (the data type of the elements), and itemsize (the memory footprint of each element in bytes).
+
+## Data Type Conversion
+
+Covers converting arrays between data types using the astype method, such as transforming floating-point values into integers, along with precision handling techniques like rounding values before conversion to preserve numerical accuracy.
+
+## Arithmetic Operations
+
+Illustrates element-wise arithmetic across arrays, including addition, multiplication, and division, forming the basis of vectorized computation that allows operations to run without explicit loops.
+
+## Universal Functions
+
+Introduces NumPy's universal functions, known as ufuncs, which apply mathematical operations element-wise across an entire array at high speed. Includes square root, exponential, and trigonometric functions such as sine.
+
+## Slicing and Indexing
+
+Covers extracting specific elements, rows, columns, and subarrays using index and slice notation. Clarifies the inclusive-start and exclusive-stop convention that governs range-based selection in NumPy.
+
+## Array Iteration
+
+Demonstrates traversing array elements efficiently using np.nditer, a multidimensional iterator that simplifies looping over arrays of any dimensionality.
+
+## Element Modification
+
+Shows how to update array values directly through index assignment, including single-element updates and broadcasted assignment across entire rows or slices.
+
+## Statistical Operations
+
+Covers descriptive statistics available in NumPy, including mean, median, standard deviation, and variance, along with data normalization techniques used to standardize values for analysis and modeling.
+
+## Logical Operations and Boolean Indexing
+
+Explains how to filter array data using logical conditions and boolean masks, enabling the selection of elements that satisfy one or more comparison criteria in a single, readable expression.
+
+## Prerequisites
+
+Python 3.x and pip are required. Install NumPy using the command below.
+
+```
+pip install numpy
+```
+
+## Usage
+
+Clone this repository and open the notebook in Jupyter Notebook, JupyterLab, or Google Colab to run the examples interactively.
+
+```
+git clone <repository-url>
+cd numpy-complete-guide
+jupyter notebook
+```
 
 ## Repository Contents
 
 | File | Description |
-|---|---|
-| Cars EDA Project notebook (.ipynb) | Jupyter/Colab notebook containing the full EDA workflow: loading, cleaning, statistics, and visualizations. |
-| Cars Dataset (.csv) | The raw automobile dataset used for analysis (208 rows, 26 columns). |
-| README.md | This file. |
+|------|-------------|
+| Numpy Complete Guide.ipynb | Jupyter notebook containing all categorized examples and outputs |
+| README.md | Project documentation and reference guide |
 
----
+## Skills Demonstrated
 
-## Objective
-
-- Inspect the structure and quality of the dataset (shape, types, missing values, duplicates).
-- Clean the data and document every cleaning decision.
-- Compute descriptive statistics for numerical and categorical features.
-- Explore relationships through univariate, bivariate, and multivariate analysis.
-- Identify outliers and correlations, especially around car price.
-
----
-
-## Dataset Overview
-
-- Rows (raw): 208
-- Columns: 26
-- Rows after removing duplicates: 205
-- Target/focus variable: price
-
-### Data Dictionary
-
-| Column | Type | Definition |
-|---|---|---|
-| car ID | Integer | Unique identifier for each listing or row. |
-| symboling | Integer | Insurance risk rating, from -3 (safe) to +3 (risky), assigned based on how risky the car is to insure relative to its price. |
-| CarName | Text | Manufacturer and model name, for example "toyota corolla". |
-| fueltype | Category | Type of fuel the car uses: gas or diesel. |
-| aspiration | Category | Engine aspiration type: standard (naturally aspirated) or turbo (turbocharged). |
-| doornumber | Category | Number of doors: two or four. |
-| carbody | Category | Body style, for example sedan, hatchback, wagon, hardtop, or convertible. |
-| drivewheel | Category | Drive configuration: front wheel drive, rear wheel drive, or four wheel drive. |
-| enginelocation | Category | Position of the engine: front or rear. |
-| wheelbase | Float | Distance between the front and rear axles, in inches. |
-| carlength | Float | Overall length of the car, in inches. |
-| carwidth | Float | Overall width of the car, in inches. |
-| carheight | Float | Overall height of the car, in inches. |
-| curbweight | Integer | Weight of the car without occupants or cargo, in pounds. |
-| enginetype | Category | Engine design, for example dohc, ohc, ohcv, or rotor. |
-| cylindernumber | Category | Number of cylinders, written as a word, for example four, six, or eight. |
-| enginesize | Float | Engine displacement in cubic inches; larger generally means more power. |
-| fuelsystem | Category | Fuel delivery system, for example mpfi (multi point fuel injection) or 2bbl (two barrel carburetor). |
-| boreratio | Float | Bore diameter of the engine cylinder, in inches. |
-| stroke | Float | Piston stroke length, in inches. |
-| compressionratio | Float | Ratio of cylinder volume at the bottom versus top of the piston stroke; higher generally means more efficient combustion. |
-| horsepower | Float | Engine power output, in horsepower. |
-| peakrpm | Integer | Engine speed, in RPM, at which peak horsepower is produced. |
-| citympg | Integer | Fuel efficiency in city driving, in miles per gallon. |
-| highwaympg | Integer | Fuel efficiency in highway driving, in miles per gallon. |
-| price | Float | Selling price of the car, in USD. The main variable of interest for this analysis. |
-
-Note: symboling, boreratio, stroke, and compressionratio are technical engineering fields.
-Keep these in mind if a chart or statistic involving them looks unintuitive, since they are
-less commonly discussed than horsepower, price, or fuel economy.
-
----
-
-## Data Cleaning Summary
-
-| Step | Before | After | Notes |
-|---|---|---|---|
-| Duplicate rows | 208 rows | 205 rows | Three fully duplicated rows were dropped. |
-| Missing values | Four cells missing across fueltype, enginesize, horsepower, and price | Zero missing | See handling below. |
-
-Missing value handling:
-
-- Numerical columns (horsepower, price, enginesize) were filled with the median of each
-  column, to avoid distortion from outliers or skew.
-- The categorical column (fueltype) was filled with the mode, the most frequent value.
-
----
-
-## EDA Workflow
-
-The notebook follows this structure, in order:
-
-1. Setup: import libraries (pandas, numpy, matplotlib, seaborn).
-2. Load and inspect: shape, column list, info summary, describe summary.
-3. Data quality check: missing values (count and percentage), duplicate rows, and
-   categorical consistency (value counts per column).
-4. Cleaning: drop duplicates, impute missing values (median or mode), and record
-   before and after row counts.
-5. Descriptive statistics: summary statistics for numerical and categorical columns,
-   plus price specific statistics (mean, median, minimum, maximum, standard deviation).
-6. Univariate analysis:
-   - Histogram of price distribution
-   - Count plot of cars by fuel type
-   - Histogram of horsepower distribution
-7. Bivariate analysis:
-   - Scatter plot of horsepower versus price
-   - Scatter plot of engine size versus price
-   - Box plot of price distribution by fuel type
-8. Multivariate analysis:
-   - Correlation heatmap across all numerical columns
-9. Outlier analysis:
-   - Box plot of price outliers
-
----
-
-## Chart Types Used
-
-Histogram, count plot, scatter plot, box plot, and correlation heatmap. Five distinct chart
-types across eight charts in total.
-
----
-
-## How to Run
-
-1. Clone this repository.
-
-   ```
-   git clone <your-repo-url>
-   cd <your-repo-folder>
-   ```
-
-2. Install dependencies.
-
-   ```
-   pip install pandas numpy matplotlib seaborn
-   ```
-
-3. Open the notebook in Jupyter or Google Colab.
-
-   ```
-   jupyter notebook "Cars EDA Project.ipynb"
-   ```
-
-4. If running in Google Colab, the second cell uses a file upload prompt to load the CSV
-   file manually. To run locally instead, replace that step with a direct file read of the
-   CSV using pandas.
-
----
-
-## Suggested Next Steps
-
-The following are not yet included in the notebook and are worth adding:
-
-- A written key findings section summarizing what each chart shows, for example how
-  strongly horsepower and engine size correlate with price.
-- A note on the limitations of the dataset, such as its small sample size, absence of a
-  listing date, or coverage limited to specific market specifications.
-- A brief comment on whether the duplicate rows and the missing values meaningfully affect
-  results, given the dataset contains only 205 to 208 rows in total.
-
----
-
-## Author
-
-Mayank L. Surana
+Array manipulation, vectorized computation, data type handling, statistical analysis, and boolean filtering using NumPy, forming a strong foundation for data analysis, scientific computing, and machine learning workflows.
 
 ## License
 
-Add a license of your choice, such as MIT, if this repository is public.
+This project is open for educational and reference use.
