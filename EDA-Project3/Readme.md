@@ -201,5 +201,5 @@ Python · NumPy · pandas · Matplotlib · Seaborn · scikit-learn · Google Col
 
 ## Author
 
-**Name:** _your name_
-**Date:** _date_
+**Name:** Mayank L Surana
+**Date:** 4th October 2026
